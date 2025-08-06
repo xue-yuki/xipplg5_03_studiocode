@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -130,6 +131,161 @@
         .animate-blob {
             animation: blob 8s infinite ease-in-out;
         }
+
+        /* Enhanced Hero Styles */
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #8b5cf6, #3b82f6);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .typing-effect {
+            border-right: 2px solid #a855f7;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #a855f7; }
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
+        }
+
+        .hero-text-fade {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .hero-text-fade.delay-1 { animation-delay: 0.2s; }
+        .hero-text-fade.delay-2 { animation-delay: 0.4s; }
+        .hero-text-fade.delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text-fade {
+            transform: translateY(30px);
+        }
+
+        .interactive-button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, transparent, transparent);
+            transition: all 0.3s ease;
+        }
+
+        .interactive-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .interactive-button:hover::before {
+            left: 100%;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 8s linear infinite;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        .hero-stats {
+            animation: slideInUp 1s ease-out 0.8s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-counter {
+            font-family: 'Inter', monospace;
+            font-weight: bold;
+        }
+
+        .mouse-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-[#1a103c] via-[#0b091a] to-[#121a41] text-gray-200 overflow-x-hidden antialiased">
@@ -177,15 +333,88 @@
                 </nav>
             </header>
 
-            <!-- Hero Section -->
-            <main id="home" class="min-h-screen flex items-center justify-center text-center -mt-20">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
-                        Bring Your Ideas to Life with 
-                        <span class="text-purple-400">StudioCode</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-10">We help you build, design, and solve</p>
-                    <a href="#contact" class="inline-block bg-transparent border-2 border-gray-300 text-gray-300 font-semibold rounded-full px-8 py-3 hover:bg-white hover:text-[#1a103c] hover:border-white transition-all duration-300 transform hover:scale-105">Get Started</a>
+            <!-- Enhanced Hero Section -->
+            <main id="home" class="min-h-screen flex items-center justify-center text-center -mt-20 relative overflow-hidden">
+                <!-- Hero Background Pattern -->
+                <div class="hero-bg-pattern"></div>
+                
+                <!-- Hero Glow Effect -->
+                <div class="hero-glow"></div>
+                
+                <!-- Floating Particles -->
+                <div class="hero-particles">
+                    <div class="particle w-3 h-3" style="left: 10%; animation-delay: 0s;"></div>
+                    <div class="particle w-2 h-2" style="left: 20%; animation-delay: 1s;"></div>
+                    <div class="particle w-4 h-4" style="left: 30%; animation-delay: 2s;"></div>
+                    <div class="particle w-2 h-2" style="left: 40%; animation-delay: 3s;"></div>
+                    <div class="particle w-3 h-3" style="left: 60%; animation-delay: 1.5s;"></div>
+                    <div class="particle w-2 h-2" style="left: 70%; animation-delay: 2.5s;"></div>
+                    <div class="particle w-4 h-4" style="left: 80%; animation-delay: 0.5s;"></div>
+                    <div class="particle w-2 h-2" style="left: 90%; animation-delay: 3.5s;"></div>
+                </div>
+
+                <!-- Floating Geometric Shapes -->
+                <div class="floating-elements">
+                    <div class="floating-shape w-16 h-16 border-2 border-purple-400" style="left: 5%; animation-delay: 0s;"></div>
+                    <div class="floating-shape w-12 h-12 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full" style="left: 15%; animation-delay: 2s;"></div>
+                    <div class="floating-shape w-20 h-20 border border-blue-400 transform rotate-45" style="right: 10%; animation-delay: 1s;"></div>
+                    <div class="floating-shape w-8 h-8 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full" style="right: 25%; animation-delay: 3s;"></div>
+                </div>
+
+                <div class="max-w-4xl relative z-10">
+                    <!-- Main Hero Content -->
+                    <div class="space-y-8">
+                        <!-- Animated Badge -->
+                        <div class="hero-text-fade inline-flex items-center px-6 py-3 rounded-full glass-effect border border-purple-400/30 text-sm font-medium text-purple-300 mb-8">
+                            <svg class="w-4 h-4 mr-2 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span id="hero-badge">Transforming Ideas Into Reality</span>
+                        </div>
+
+                        <!-- Main Heading with Typing Effect -->
+                        <h1 class="hero-text-fade delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+                            Bring Your Ideas to Life with 
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 typing-effect" id="company-name">StudioCode</span>
+                        </h1>
+
+                        <!-- Subtitle with Rotating Text -->
+                        <p class="hero-text-fade delay-2 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+                            We help you <span id="rotating-text" class="text-purple-400 font-semibold">build</span>, design, and solve with cutting-edge technology
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="hero-text-fade delay-3 flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                            <a href="#contact" class="interactive-button group inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25">
+                                <span class="mr-2">Get Started</span>
+                                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </a>
+                            <a href="#about" class="interactive-button group inline-flex items-center bg-transparent border-2 border-gray-300 text-gray-300 font-semibold rounded-full px-8 py-4 hover:bg-white hover:text-gray-900 hover:border-white transition-all duration-300 transform hover:scale-105">
+                                <svg class="w-5 h-5 mr-2 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M12 5C8.686 5 6 7.686 6 11a4.98 4.98 0 001.063 3.065A1 1 0 006 16v2a1 1 0 001 1h10a1 1 0 001-1v-2a1 1 0 00-1.063-1.935A4.98 4.98 0 0018 11c0-3.314-2.686-6-6-6z"/>
+                                </svg>
+                                <span>Learn More</span>
+                            </a>
+                        </div>
+
+                        <!-- Hero Stats -->
+                        <div class="hero-stats grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/10">
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="150">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="98">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Client Satisfaction</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="24">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Support Hours</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
 
@@ -215,12 +444,6 @@
                             <h3 class="mt-6 text-xl font-semibold text-white">Bima Nugraha</h3>
                             <p class="mt-1 text-purple-400">Head of Design</p>
                             <p class="mt-4 text-gray-400 text-sm">Bima adalah otak kreatif di balik antarmuka yang indah dan pengalaman pengguna yang mulus.</p>
-                        </div>
-                        <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=CL" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
-                            <h3 class="mt-6 text-xl font-semibold text-white">Riza</h3>
-                            <p class="mt-1 text-purple-400">Project Manager</p>
-                            <p class="mt-4 text-gray-400 text-sm">Riza memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
                         </div>
                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
                             <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=CL" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
@@ -438,6 +661,75 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 4. Dynamic Badge Text Change
+            const badgeTexts = [
+                'Transforming Ideas Into Reality',
+                'Building Tomorrow\'s Solutions Today',
+                'Your Digital Dreams, Our Code',
+                'Innovation Through Technology'
+            ];
+            const badgeElement = document.getElementById('hero-badge');
+            let badgeIndex = 0;
+
+            function changeBadgeText() {
+                if (badgeElement) {
+                    badgeElement.style.opacity = '0';
+                    setTimeout(() => {
+                        badgeIndex = (badgeIndex + 1) % badgeTexts.length;
+                        badgeElement.textContent = badgeTexts[badgeIndex];
+                        badgeElement.style.opacity = '1';
+                    }, 500);
+                }
+            }
+
+            setInterval(changeBadgeText, 4000);
+
+            // 5. Mouse-following particle effect
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function createMouseParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'fixed w-1 h-1 bg-purple-400 rounded-full pointer-events-none z-50 opacity-60';
+                particle.style.left = mouseX + 'px';
+                particle.style.top = mouseY + 'px';
+                particle.style.transition = 'all 0.8s ease-out';
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    particle.style.transform = 'scale(0)';
+                }, 100);
+
+                setTimeout(() => {
+                    document.body.removeChild(particle);
+                }, 900);
+            }
+
+            // Create mouse particles on hero section
+            const heroSection = document.getElementById('home');
+            heroSection.addEventListener('mousemove', () => {
+                if (Math.random() > 0.9) { // Only create particles occasionally
+                    createMouseParticle();
+                }
+            });
+
+            // 6. Parallax effect for floating elements
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.floating-shape');
+                
+                parallaxElements.forEach((element, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    element.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+                });
+            });
+
+            // --- Existing Features (Updated) ---
+            
             // --- Fitur 1: Animasi saat Scroll ---
             const revealElements = document.querySelectorAll('.reveal');
             const revealObserver = new IntersectionObserver((entries) => {
@@ -526,81 +818,118 @@
                 });
             }
 
-            // --- Fitur 6: Simpan Form & Kirim ke API ---
+            // --- Fitur 6: Form Handling ---
             const contactForm = document.getElementById('contact-form');
             const successMessage = document.getElementById('form-success-message');
 
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
 
-                // 1. Simpan ke Local Storage
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
+                    // 1. Collect form data (removed localStorage)
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
 
-                const newMessage = {
-                    name: name,
-                    email: email,
-                    message: message,
-                    timestamp: new Date().toISOString()
-                };
-                let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
-                messages.push(newMessage);
-                localStorage.setItem('contactMessages', JSON.stringify(messages));
-                console.log('Pesan disimpan di local storage:', newMessage);
+                    console.log('Form submitted:', { name, email, message });
 
-                // 2. Kirim ke API Web3Forms
-                const formData = new FormData(contactForm);
-                const object = Object.fromEntries(formData.entries());
-                const json = JSON.stringify(object);
+                    // 2. Send to Web3Forms API
+                    const formData = new FormData(contactForm);
+                    const object = Object.fromEntries(formData.entries());
+                    const json = JSON.stringify(object);
 
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                submitButton.innerHTML = 'Mengirim...';
-                submitButton.disabled = true;
-                
-                successMessage.style.display = 'none';
-                successMessage.classList.remove('text-red-400');
-                successMessage.classList.add('text-green-400');
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    submitButton.innerHTML = 'Mengirim...';
+                    submitButton.disabled = true;
+                    
+                    successMessage.style.display = 'none';
+                    successMessage.classList.remove('text-red-400');
+                    successMessage.classList.add('text-green-400');
 
-
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    let apiResult = await response.json();
-                    if (response.status == 200) {
-                        successMessage.textContent = apiResult.message || 'Pesan Anda telah berhasil dikirim & disimpan!';
-                        successMessage.style.display = 'block';
-                        contactForm.reset();
-                    } else {
-                        console.error('API Error:', apiResult);
-                        successMessage.textContent = apiResult.message || 'Terjadi kesalahan saat mengirim pesan.';
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: json
+                    })
+                    .then(async (response) => {
+                        let apiResult = await response.json();
+                        if (response.status == 200) {
+                            successMessage.textContent = apiResult.message || 'Pesan Anda telah berhasil dikirim!';
+                            successMessage.style.display = 'block';
+                            contactForm.reset();
+                        } else {
+                            console.error('API Error:', apiResult);
+                            successMessage.textContent = apiResult.message || 'Terjadi kesalahan saat mengirim pesan.';
+                            successMessage.classList.remove('text-green-400');
+                            successMessage.classList.add('text-red-400');
+                            successMessage.style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        successMessage.textContent = 'Terjadi kesalahan koneksi.';
                         successMessage.classList.remove('text-green-400');
                         successMessage.classList.add('text-red-400');
                         successMessage.style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch Error:', error);
-                    successMessage.textContent = 'Terjadi kesalahan koneksi.';
-                    successMessage.classList.remove('text-green-400');
-                    successMessage.classList.add('text-red-400');
-                    successMessage.style.display = 'block';
-                })
-                .finally(() => {
-                    submitButton.innerHTML = 'Kirim Pesan';
-                    submitButton.disabled = false;
+                    })
+                    .finally(() => {
+                        submitButton.innerHTML = 'Kirim Pesan';
+                        submitButton.disabled = false;
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    });
+                });
+            }
+
+            // --- Hero Button Click Effects ---
+            const heroButtons = document.querySelectorAll('.interactive-button');
+            heroButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
                     setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
+                        ripple.remove();
+                    }, 600);
                 });
             });
+
+            // CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
         });
     </script>
 </body>
-</html>
+</html
