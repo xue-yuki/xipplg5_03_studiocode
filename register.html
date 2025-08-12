@@ -403,12 +403,42 @@
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const customCheckboxes = document.querySelectorAll('.custom-checkbox');
             
-            customCheckboxes.forEach((checkbox, index) => {
-                checkbox.addEventListener('click', function() {
-                    const input = checkboxes[index];
-                    input.checked = !input.checked;
-                    checkbox.classList.toggle('checked', input.checked);
+            // Handle click on custom checkboxes
+            customCheckboxes.forEach((customCheckbox, index) => {
+                customCheckbox.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Toggle the actual checkbox
+                    const checkbox = checkboxes[index];
+                    checkbox.checked = !checkbox.checked;
+                    
+                    // Update visual state
+                    updateCheckboxVisual(index);
                 });
+            });
+
+            // Handle change on actual checkboxes
+            checkboxes.forEach((checkbox, index) => {
+                checkbox.addEventListener('change', function() {
+                    updateCheckboxVisual(index);
+                });
+            });
+
+            function updateCheckboxVisual(index) {
+                const checkbox = checkboxes[index];
+                const customCheckbox = customCheckboxes[index];
+                
+                if (checkbox.checked) {
+                    customCheckbox.classList.add('checked');
+                } else {
+                    customCheckbox.classList.remove('checked');
+                }
+            }
+
+            // Initialize all checkbox visual states
+            checkboxes.forEach((checkbox, index) => {
+                updateCheckboxVisual(index);
             });
 
             // Password Strength Checker
@@ -516,7 +546,57 @@
                     }
                 }
                 
+                // Additional validation for step 3
+                if (currentStep === 3) {
+                    const accountType = document.getElementById('account-type').value;
+                    const terms = document.getElementById('terms').checked;
+                    
+                    if (!accountType) {
+                        isValid = false;
+                        showMessage('Pilih jenis akun!', 'error');
+                    }
+                    
+                    if (!terms) {
+                        isValid = false;
+                        showMessage('Anda harus menyetujui Syarat & Ketentuan!', 'error');
+                    }
+                }
+                
                 return isValid;
+            }
+
+            function validateAllSteps() {
+                // Validate all steps before final submission
+                for (let step = 1; step <= totalSteps; step++) {
+                    const stepEl = document.getElementById(`step-${step}`);
+                    const inputs = stepEl.querySelectorAll('input[required]');
+                    
+                    // Check required inputs
+                    for (let input of inputs) {
+                        if (!input.value.trim()) {
+                            return false;
+                        }
+                    }
+                    
+                    // Step-specific validations
+                    if (step === 2) {
+                        const password = document.getElementById('password').value;
+                        const confirmPassword = document.getElementById('confirm-password').value;
+                        if (password !== confirmPassword) {
+                            return false;
+                        }
+                    }
+                    
+                    if (step === 3) {
+                        const accountType = document.getElementById('account-type').value;
+                        const terms = document.getElementById('terms').checked;
+                        if (!accountType || !terms) {
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
             }
 
             // Form Submission
@@ -529,9 +609,16 @@
             registerForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                if (!validateCurrentStep()) {
+                console.log('Form submission started...');
+                
+                // Validate all steps before submission
+                if (!validateAllSteps()) {
+                    console.log('Validation failed');
+                    showMessage('Mohon lengkapi semua data yang diperlukan!', 'error');
                     return;
                 }
+                
+                console.log('Validation passed, proceeding with submission...');
                 
                 // Show loading state
                 btnText.classList.add('hidden');
@@ -543,6 +630,8 @@
                 
                 // Simulate API call
                 setTimeout(() => {
+                    console.log('Processing form data...');
+                    
                     // Collect form data
                     const formData = {
                         firstName: document.getElementById('first-name').value,
@@ -556,16 +645,38 @@
                         createdAt: new Date().toISOString()
                     };
                     
+                    console.log('Form data collected:', formData);
+                    
                     // Save to localStorage
-                    saveUserData(formData);
+                    const saveResult = saveUserData(formData);
                     
-                    // Success
-                    showMessage('Akun berhasil dibuat! Mengalihkan...', 'success');
+                    console.log('Save result:', saveResult);
                     
-                    // Simulate redirect
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
+                    if (saveResult) {
+                        // Success
+                        console.log('Registration successful, showing success message...');
+                        showMessage('🎉 Akun berhasil dibuat! Mengalihkan ke halaman login...', 'success');
+                        
+                        // Reset button state
+                        btnText.classList.remove('hidden');
+                        btnLoading.classList.add('hidden');
+                        submitBtn.disabled = false;
+                        
+                        // Simulate redirect
+                        setTimeout(() => {
+                            console.log('Redirecting to login page...');
+                            window.location.href = 'login.html';
+                        }, 3000);
+                    } else {
+                        // Error - email already exists
+                        console.log('Registration failed - email already exists');
+                        showMessage('❌ Email sudah terdaftar! Silakan gunakan email lain.', 'error');
+                        
+                        // Reset button state
+                        btnText.classList.remove('hidden');
+                        btnLoading.classList.add('hidden');
+                        submitBtn.disabled = false;
+                    }
                 }, 1500);
             });
 
@@ -576,8 +687,8 @@
                 // Check if email already exists
                 const existingUser = users.find(user => user.email === userData.email);
                 if (existingUser) {
-                    showMessage('Email sudah terdaftar!', 'error');
-                    return false;
+                    console.log('Email already exists:', userData.email);
+                    return false; // Email already exists
                 }
                 
                 // Add new user
@@ -586,13 +697,13 @@
                 // Save back to localStorage
                 localStorage.setItem('studiocode_users', JSON.stringify(users));
                 
-                console.log('User data saved:', userData);
+                console.log('User data saved successfully:', userData);
                 console.log('Total users:', users.length);
                 
                 // Display stored users for debugging
                 displayStoredUsers();
                 
-                return true;
+                return true; // Success
             }
 
             function displayStoredUsers() {

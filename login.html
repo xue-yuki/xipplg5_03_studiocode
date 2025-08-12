@@ -301,10 +301,33 @@
             const checkbox = document.getElementById('remember');
             const customCheckbox = document.querySelector('.custom-checkbox');
             
-            customCheckbox.addEventListener('click', function() {
+            // Handle click on custom checkbox
+            customCheckbox.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Toggle the actual checkbox
                 checkbox.checked = !checkbox.checked;
-                customCheckbox.classList.toggle('checked', checkbox.checked);
+                
+                // Update visual state
+                updateCheckboxVisual();
             });
+
+            // Handle change on actual checkbox
+            checkbox.addEventListener('change', function() {
+                updateCheckboxVisual();
+            });
+
+            function updateCheckboxVisual() {
+                if (checkbox.checked) {
+                    customCheckbox.classList.add('checked');
+                } else {
+                    customCheckbox.classList.remove('checked');
+                }
+            }
+
+            // Initialize checkbox visual state
+            updateCheckboxVisual();
 
             // Form Submission
             const loginForm = document.getElementById('login-form');
