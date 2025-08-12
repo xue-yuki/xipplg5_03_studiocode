@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,126 +12,8 @@
     <!-- Impor Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Menggunakan font Inter sebagai default */
-        html {
-            scroll-behavior: smooth; /* Membuat scroll menjadi halus saat klik navigasi */
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0c0a1e; /* Warna dasar jika gradien tidak didukung */
-        }
-        /* Efek gradien dan blur untuk elemen latar belakang */
-        .glass-effect {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-        
-        /* Gaya untuk Navigasi Aktif */
-        .nav-active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #c084fc; /* Warna ungu muda */
-            font-weight: 600;
-        }
-
-        /* Gaya untuk Animasi Scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.6s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Gaya untuk Efek 3D Tilt pada Kartu */
-        .card-3d {
-            transform-style: preserve-3d;
-            transition: transform 0.1s linear, box-shadow 0.3s ease;
-        }
-        .card-3d:hover {
-             box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.25);
-        }
-
-        /* Gaya untuk Accordion di Services */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-        }
-        .accordion-item.active .accordion-content {
-            max-height: 20rem; /* Sesuaikan tinggi maksimum sesuai kebutuhan */
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        .accordion-item.active .accordion-icon {
-            transform: rotate(45deg);
-        }
-        .accordion-icon {
-            transition: transform 0.3s ease;
-        }
-
-        /* Gaya untuk Toggle Pricing */
-        .price-toggle:checked + .toggle-label {
-            background-color: #8b5cf6; /* Warna ungu */
-        }
-        .price-toggle:checked + .toggle-label .toggle-dot {
-            transform: translateX(100%);
-        }
-        .price-value {
-            transition: opacity 0.3s ease-in-out;
-        }
-        .price-value.updating {
-            opacity: 0;
-        }
-
-        /* Gaya untuk Form Kontak Interaktif */
-        .form-group {
-            position: relative;
-        }
-        .form-input {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: border-color 0.3s ease;
-        }
-        .form-label {
-            position: absolute;
-            left: 1rem;
-            top: 0.875rem; /* 14px */
-            color: #9ca3af;
-            transition: all 0.2s ease-in-out;
-            pointer-events: none;
-        }
-        .form-input:focus + .form-label,
-        .form-input:not(:placeholder-shown) + .form-label {
-            top: -0.625rem; /* -10px */
-            left: 0.75rem; /* 12px */
-            font-size: 0.75rem; /* 12px */
-            padding: 0 0.25rem;
-            background-color: #1a1f36; /* Sesuaikan dengan BG form */
-            color: #c084fc;
-        }
-        .form-input:focus {
-            border-color: #a855f7;
-            outline: none;
-        }
-
-        /* Gaya untuk Animated Blob */
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-            animation: blob 8s infinite ease-in-out;
-        }
-    </style>
 </head>
 <body class="bg-gradient-to-br from-[#1a103c] via-[#0b091a] to-[#121a41] text-gray-200 overflow-x-hidden antialiased">
 
@@ -177,15 +60,88 @@
                 </nav>
             </header>
 
-            <!-- Hero Section -->
-            <main id="home" class="min-h-screen flex items-center justify-center text-center -mt-20">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
-                        Bring Your Ideas to Life with 
-                        <span class="text-purple-400">StudioCode</span>
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto mb-10">We help you build, design, and solve</p>
-                    <a href="#contact" class="inline-block bg-transparent border-2 border-gray-300 text-gray-300 font-semibold rounded-full px-8 py-3 hover:bg-white hover:text-[#1a103c] hover:border-white transition-all duration-300 transform hover:scale-105">Get Started</a>
+            <!-- Enhanced Hero Section -->
+            <main id="home" class="min-h-screen flex items-center justify-center text-center -mt-20 relative overflow-hidden">
+                <!-- Hero Background Pattern -->
+                <div class="hero-bg-pattern"></div>
+                
+                <!-- Hero Glow Effect -->
+                <div class="hero-glow"></div>
+                
+                <!-- Floating Particles -->
+                <div class="hero-particles">
+                    <div class="particle w-3 h-3" style="left: 10%; animation-delay: 0s;"></div>
+                    <div class="particle w-2 h-2" style="left: 20%; animation-delay: 1s;"></div>
+                    <div class="particle w-4 h-4" style="left: 30%; animation-delay: 2s;"></div>
+                    <div class="particle w-2 h-2" style="left: 40%; animation-delay: 3s;"></div>
+                    <div class="particle w-3 h-3" style="left: 60%; animation-delay: 1.5s;"></div>
+                    <div class="particle w-2 h-2" style="left: 70%; animation-delay: 2.5s;"></div>
+                    <div class="particle w-4 h-4" style="left: 80%; animation-delay: 0.5s;"></div>
+                    <div class="particle w-2 h-2" style="left: 90%; animation-delay: 3.5s;"></div>
+                </div>
+
+                <!-- Floating Geometric Shapes -->
+                <div class="floating-elements">
+                    <div class="floating-shape w-16 h-16 border-2 border-purple-400" style="left: 5%; animation-delay: 0s;"></div>
+                    <div class="floating-shape w-12 h-12 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full" style="left: 15%; animation-delay: 2s;"></div>
+                    <div class="floating-shape w-20 h-20 border border-blue-400 transform rotate-45" style="right: 10%; animation-delay: 1s;"></div>
+                    <div class="floating-shape w-8 h-8 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full" style="right: 25%; animation-delay: 3s;"></div>
+                </div>
+
+                <div class="max-w-4xl relative z-10">
+                    <!-- Main Hero Content -->
+                    <div class="space-y-8">
+                        <!-- Animated Badge -->
+                        <div class="hero-text-fade inline-flex items-center px-6 py-3 rounded-full glass-effect border border-purple-400/30 text-sm font-medium text-purple-300 mb-8">
+                            <svg class="w-4 h-4 mr-2 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span id="hero-badge">Transforming Ideas Into Reality</span>
+                        </div>
+
+                        <!-- Main Heading with Typing Effect -->
+                        <h1 class="hero-text-fade delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
+                            Bring Your Ideas to Life with 
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 typing-effect" id="company-name">StudioCode</span>
+                        </h1>
+
+                        <!-- Subtitle with Rotating Text -->
+                        <p class="hero-text-fade delay-2 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+                            We help you <span id="rotating-text" class="text-purple-400 font-semibold">build</span>, design, and solve with cutting-edge technology
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="hero-text-fade delay-3 flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                            <a href="#contact" class="interactive-button group inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-full px-8 py-4 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/25">
+                                <span class="mr-2">Get Started</span>
+                                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </a>
+                            <a href="#about" class="interactive-button group inline-flex items-center bg-transparent border-2 border-gray-300 text-gray-300 font-semibold rounded-full px-8 py-4 hover:bg-white hover:text-gray-900 hover:border-white transition-all duration-300 transform hover:scale-105">
+                                <svg class="w-5 h-5 mr-2 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M12 5C8.686 5 6 7.686 6 11a4.98 4.98 0 001.063 3.065A1 1 0 006 16v2a1 1 0 001 1h10a1 1 0 001-1v-2a1 1 0 00-1.063-1.935A4.98 4.98 0 0018 11c0-3.314-2.686-6-6-6z"/>
+                                </svg>
+                                <span>Learn More</span>
+                            </a>
+                        </div>
+
+                        <!-- Hero Stats -->
+                        <div class="hero-stats grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/10">
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="150">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="98">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Client Satisfaction</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-counter text-3xl md:text-4xl font-bold text-white" data-target="24">0</div>
+                                <div class="text-sm text-gray-400 mt-1">Support Hours</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
 
@@ -205,28 +161,40 @@
                     <h2 class="text-3xl font-bold tracking-tight text-center text-white">Temui Tim Kami</h2>
                     <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3" style="perspective: 1000px;">
                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/3B82F6/FFFFFF?text=AV" alt="Foto profil Aria Vesta" onerror="this.onerror=null;this.src='https://placehold.co/100x100/3B82F6/FFFFFF?text=AV';">
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/3B82F6/FFFFFF?text=EG" alt="Foto profil Aria Vesta" onerror="this.onerror=null;this.src='https://placehold.co/100x100/3B82F6/FFFFFF?text=AV';">
                             <h3 class="mt-6 text-xl font-semibold text-white">Erlangga</h3>
                             <p class="mt-1 text-purple-400">CEO & Lead Developer</p>
-                            <p class="mt-4 text-gray-400 text-sm">Dengan pengalaman lebih dari satu dekade, Aria memimpin visi teknis dan strategis perusahaan.</p>
+                            <p class="mt-4 text-gray-400 text-sm">Dengan pengalaman lebih dari satu dekade, Erlangga memimpin visi teknis dan strategis perusahaan.</p>
                         </div>
                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/A855F7/FFFFFF?text=BN" alt="Foto profil Bima Nugraha" onerror="this.onerror=null;this.src='https://placehold.co/100x100/A855F7/FFFFFF?text=BN';">
-                            <h3 class="mt-6 text-xl font-semibold text-white">Bima Nugraha</h3>
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/A855F7/FFFFFF?text=RG" alt="Foto profil Bima Nugraha" onerror="this.onerror=null;this.src='https://placehold.co/100x100/A855F7/FFFFFF?text=BN';">
+                            <h3 class="mt-6 text-xl font-semibold text-white">Rangga</h3>
                             <p class="mt-1 text-purple-400">Head of Design</p>
-                            <p class="mt-4 text-gray-400 text-sm">Bima adalah otak kreatif di balik antarmuka yang indah dan pengalaman pengguna yang mulus.</p>
+                            <p class="mt-4 text-gray-400 text-sm">Rangga adalah otak kreatif di balik antarmuka yang indah dan pengalaman pengguna yang mulus.</p>
                         </div>
                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=CL" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
-                            <h3 class="mt-6 text-xl font-semibold text-white">Riza</h3>
-                            <p class="mt-1 text-purple-400">Project Manager</p>
-                            <p class="mt-4 text-gray-400 text-sm">Riza memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
-                        </div>
-                        <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=CL" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=AZ" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
                             <h3 class="mt-6 text-xl font-semibold text-white">Azzam</h3>
                             <p class="mt-1 text-purple-400">Project Manager</p>
-                            <p class="mt-4 text-gray-400 text-sm">Citra memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
+                            <p class="mt-4 text-gray-400 text-sm">Azzam memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
+                        </div>
+                        <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/A855F7/FFFFFF?text=DF" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
+                            <h3 class="mt-6 text-xl font-semibold text-white">Daffa</h3>
+                            <p class="mt-1 text-purple-400">Project Manager</p>
+                            <p class="mt-4 text-gray-400 text-sm">Daffa memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
+                        </div>
+                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/10B981/FFFFFF?text=RZ" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=RZ';">
+                            <h3 class="mt-6 text-xl font-semibold text-white">Riza</h3>
+                            <p class="mt-1 text-purple-400">Sellezt</p>
+                            <p class="mt-4 text-gray-400 text-sm">Riza adalah otak di balik kekuatan kreatif di balik kampanye yang membangun hubungan kuat antara merek dan audiens. </p>
+                        </div>
+                         <div class="card-3d bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
+                            <img class="w-24 h-24 rounded-full mx-auto" src="https://placehold.co/100x100/3B82F6/FFFFFF?text=FB" alt="Foto profil Citra Lestari" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10B981/FFFFFF?text=CL';">
+                            <h3 class="mt-6 text-xl font-semibold text-white">Fabia</h3>
+                            <p class="mt-1 text-purple-400">Project Manager</p>
+                            <p class="mt-4 text-gray-400 text-sm">Daffa memastikan setiap proyek berjalan lancar, tepat waktu, dan sesuai dengan harapan klien.</p>
                         </div>
                     </div>
                 </div>
@@ -430,171 +398,6 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // --- Fitur 1: Animasi saat Scroll ---
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            revealElements.forEach(elem => { revealObserver.observe(elem); });
-
-            // --- Fitur 2: Efek 3D Tilt pada Kartu ---
-            const cards = document.querySelectorAll('.card-3d');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const { width, height } = rect;
-                    const rotateX = (y / height - 0.5) * -15;
-                    const rotateY = (x / width - 0.5) * 15;
-                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-                });
-            });
-
-            // --- Fitur 3: Penyorotan Navigasi Aktif ---
-            const sections = document.querySelectorAll('section, main');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const navObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('nav-active');
-                            if (link.getAttribute('href').substring(1) === entry.target.id) {
-                                link.classList.add('nav-active');
-                            }
-                        });
-                    }
-                });
-            }, { rootMargin: '-50% 0px -50% 0px' });
-            sections.forEach(section => { navObserver.observe(section); });
-
-            // --- Fitur 4: Accordion untuk Services ---
-            const accordionItems = document.querySelectorAll('.accordion-item');
-            accordionItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                header.addEventListener('click', () => {
-                    accordionItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.classList.contains('active')) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                    item.classList.toggle('active');
-                });
-            });
-
-            // --- Fitur 5: Toggle Harga Interaktif ---
-            const priceToggle = document.getElementById('price-toggle');
-            if (priceToggle) {
-                const priceValues = document.querySelectorAll('.price-value');
-                const pricePeriods = document.querySelectorAll('.price-period');
-
-                priceToggle.addEventListener('change', () => {
-                    const isYearly = priceToggle.checked;
-
-                    priceValues.forEach(valueEl => {
-                        if (!valueEl.dataset.monthly) return; 
-
-                        const monthlyPrice = valueEl.dataset.monthly;
-                        const yearlyPrice = valueEl.dataset.yearly;
-                        
-                        valueEl.classList.add('updating'); 
-                        
-                        setTimeout(() => {
-                            valueEl.textContent = isYearly ? yearlyPrice : monthlyPrice;
-                            valueEl.classList.remove('updating'); 
-                        }, 150);
-                    });
-
-                    pricePeriods.forEach(periodEl => {
-                        periodEl.textContent = isYearly ? '/tahun' : '/bulan';
-                    });
-                });
-            }
-
-            // --- Fitur 6: Simpan Form & Kirim ke API ---
-            const contactForm = document.getElementById('contact-form');
-            const successMessage = document.getElementById('form-success-message');
-
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                // 1. Simpan ke Local Storage
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-
-                const newMessage = {
-                    name: name,
-                    email: email,
-                    message: message,
-                    timestamp: new Date().toISOString()
-                };
-                let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
-                messages.push(newMessage);
-                localStorage.setItem('contactMessages', JSON.stringify(messages));
-                console.log('Pesan disimpan di local storage:', newMessage);
-
-                // 2. Kirim ke API Web3Forms
-                const formData = new FormData(contactForm);
-                const object = Object.fromEntries(formData.entries());
-                const json = JSON.stringify(object);
-
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                submitButton.innerHTML = 'Mengirim...';
-                submitButton.disabled = true;
-                
-                successMessage.style.display = 'none';
-                successMessage.classList.remove('text-red-400');
-                successMessage.classList.add('text-green-400');
-
-
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    let apiResult = await response.json();
-                    if (response.status == 200) {
-                        successMessage.textContent = apiResult.message || 'Pesan Anda telah berhasil dikirim & disimpan!';
-                        successMessage.style.display = 'block';
-                        contactForm.reset();
-                    } else {
-                        console.error('API Error:', apiResult);
-                        successMessage.textContent = apiResult.message || 'Terjadi kesalahan saat mengirim pesan.';
-                        successMessage.classList.remove('text-green-400');
-                        successMessage.classList.add('text-red-400');
-                        successMessage.style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch Error:', error);
-                    successMessage.textContent = 'Terjadi kesalahan koneksi.';
-                    successMessage.classList.remove('text-green-400');
-                    successMessage.classList.add('text-red-400');
-                    successMessage.style.display = 'block';
-                })
-                .finally(() => {
-                    submitButton.innerHTML = 'Kirim Pesan';
-                    submitButton.disabled = false;
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
-</html>
+</html
