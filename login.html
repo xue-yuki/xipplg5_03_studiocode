@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StudioCode</title>
+    
+    <!-- Impor Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Impor Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0a1e;
+        }
+        
+        /* Efek gradien dan blur untuk elemen latar belakang */
+        .glass-effect {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Gaya untuk Form Input */
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #a855f7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+        
+        /* Gaya untuk Floating Label */
+        .form-label {
+            position: absolute;
+            left: 1rem;
+            top: 0.875rem;
+            color: #9ca3af;
+            transition: all 0.2s ease-in-out;
+            pointer-events: none;
+        }
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -0.625rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            padding: 0 0.25rem;
+            background-color: #1a1f36;
+            color: #c084fc;
+        }
+        
+        /* Gaya untuk Password Toggle */
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #9ca3af;
+            transition: color 0.3s ease;
+        }
+        .password-toggle:hover {
+            color: #c084fc;
+        }
+        
+        /* Gaya untuk Checkbox Kustom */
+        .custom-checkbox {
+            position: relative;
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        .custom-checkbox.checked {
+            background-color: #a855f7;
+            border-color: #a855f7;
+        }
+        .custom-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        /* Gaya untuk Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #a855f7;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Gaya untuk Animated Blob */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 8s infinite ease-in-out;
+        }
+        
+        /* Gaya untuk Card 3D Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.1s linear, box-shadow 0.3s ease;
+        }
+        .card-3d:hover {
+            box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.25);
+        }
+        
+        /* Gaya untuk Social Login Buttons */
+        .social-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#1a103c] via-[#0b091a] to-[#121a41] text-gray-200 overflow-x-hidden antialiased min-h-screen">
+
+    <!-- Elemen Grafis Latar Belakang -->
+    <div class="absolute top-10 right-10 md:top-20 md:right-20 transform-gpu -translate-y-1/2 opacity-60 z-0">
+        <div class="w-24 h-24 md:w-32 md:h-32 glass-effect rounded-2xl transform rotate-45"></div>
+    </div>
+    <div class="absolute bottom-1/4 left-0 transform-gpu -translate-x-1/4 opacity-20 z-0">
+        <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(107, 114, 128, 0.5)" stroke-width="0.5"/></pattern></defs>
+            <circle cx="200" cy="200" r="190" fill="none" stroke="rgba(107, 114, 128, 0.3)" stroke-width="1"/>
+            <rect width="400" height="400" fill="url(#grid)" mask="url(#circle-mask)"/>
+            <mask id="circle-mask"><circle cx="200" cy="200" r="200" fill="white"/></mask>
+        </svg>
+    </div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-900 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob -translate-x-1/2 -translate-y-1/2 z-0"></div>
+    <div class="absolute top-1/2 left-1/4 w-72 h-72 bg-indigo-900 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" style="animation-delay: -2s;"></div>
+
+    <!-- Header -->
+    <header class="relative z-10 py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold tracking-wider text-white hover:text-purple-400 transition-colors duration-300">
+                    StudioCode
+                </a>
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    ← Kembali ke Beranda
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex items-center justify-center min-h-screen py-12">
+        <div class="w-full max-w-md">
+            <!-- Login Card -->
+            <div class="card-3d glass-effect rounded-3xl p-8 shadow-2xl">
+                <!-- Header -->
+                <div class="text-center mb-8">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-3xl font-bold text-white mb-2">Selamat Datang Kembali</h1>
+                    <p class="text-gray-400">Masuk ke akun StudioCode Anda</p>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="space-y-6">
+                    <!-- Email Input -->
+                    <div class="relative">
+                        <input type="email" id="email" name="email" class="form-input w-full rounded-xl py-4 px-4 text-white placeholder-transparent" placeholder="Email" required>
+                        <label for="email" class="form-label">Email</label>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="relative">
+                        <input type="password" id="password" name="password" class="form-input w-full rounded-xl py-4 px-4 text-white placeholder-transparent pr-12" placeholder="Password" required>
+                        <label for="password" class="form-label">Password</label>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" id="remember" class="hidden">
+                            <div class="custom-checkbox mr-3"></div>
+                            <span class="text-sm text-gray-400">Ingat saya</span>
+                        </label>
+                        <a href="#" class="text-sm text-purple-400 hover:text-purple-300 transition-colors duration-300">Lupa password?</a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" id="login-btn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl py-4 hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                        <span id="btn-text">Masuk</span>
+                        <span id="btn-loading" class="loading-spinner hidden"></span>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="my-8 flex items-center">
+                    <div class="flex-1 border-t border-gray-600"></div>
+                    <span class="px-4 text-gray-500 text-sm">atau</span>
+                    <div class="flex-1 border-t border-gray-600"></div>
+                </div>
+
+                <!-- Social Login -->
+                <div class="space-y-4">
+                    <button class="social-btn w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-xl text-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span>Lanjutkan dengan Google</span>
+                    </button>
+                    
+                    <button class="social-btn w-full flex items-center justify-center space-x-3 py-3 px-4 rounded-xl text-white">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                        <span>Lanjutkan dengan Twitter</span>
+                    </button>
+                </div>
+
+                <!-- Sign Up Link -->
+                <div class="text-center mt-8">
+                    <p class="text-gray-400">
+                        Belum punya akun? 
+                        <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition-colors duration-300">Daftar sekarang</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Success/Error Message -->
+            <div id="message" class="mt-6 text-center hidden">
+                <div id="message-content" class="inline-block px-4 py-3 rounded-xl text-sm font-medium"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password Toggle
+            window.togglePassword = function() {
+                const passwordInput = document.getElementById('password');
+                const eyeIcon = document.getElementById('eye-icon');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                    `;
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    `;
+                }
+            };
+
+            // Custom Checkbox
+            const checkbox = document.getElementById('remember');
+            const customCheckbox = document.querySelector('.custom-checkbox');
+            
+            customCheckbox.addEventListener('click', function() {
+                checkbox.checked = !checkbox.checked;
+                customCheckbox.classList.toggle('checked', checkbox.checked);
+            });
+
+            // Form Submission
+            const loginForm = document.getElementById('login-form');
+            const loginBtn = document.getElementById('login-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            const message = document.getElementById('message');
+            const messageContent = document.getElementById('message-content');
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                btnText.classList.add('hidden');
+                btnLoading.classList.remove('hidden');
+                loginBtn.disabled = true;
+                
+                // Hide previous messages
+                message.classList.add('hidden');
+                
+                // Simulate API call
+                setTimeout(() => {
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    // Simple validation (replace with actual authentication)
+                    if (email && password) {
+                        // Success
+                        showMessage('Login berhasil! Mengalihkan...', 'success');
+                        
+                        // Simulate redirect
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 2000);
+                    } else {
+                        // Error
+                        showMessage('Email dan password harus diisi!', 'error');
+                    }
+                    
+                    // Reset button state
+                    btnText.classList.remove('hidden');
+                    btnLoading.classList.add('hidden');
+                    loginBtn.disabled = false;
+                }, 1500);
+            });
+
+            function showMessage(text, type) {
+                messageContent.textContent = text;
+                messageContent.className = `inline-block px-4 py-3 rounded-xl text-sm font-medium ${
+                    type === 'success' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 
+                    'bg-red-500/20 text-red-400 border border-red-500/30'
+                }`;
+                message.classList.remove('hidden');
+            }
+
+            // 3D Card Effect
+            const card = document.querySelector('.card-3d');
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const { width, height } = rect;
+                const rotateX = (y / height - 0.5) * -10;
+                const rotateY = (x / width - 0.5) * 10;
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html> 
