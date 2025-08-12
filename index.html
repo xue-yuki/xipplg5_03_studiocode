@@ -53,7 +53,13 @@
                             <li><a href="#services" class="nav-link px-4 py-2 rounded-full hover:bg-white/10 transition-colors duration-300">Services</a></li>
                             <li><a href="#pricing" class="nav-link px-4 py-2 rounded-full hover:bg-white/10 transition-colors duration-300">Pricing</a></li>
                             <li><a href="#contact" class="nav-link px-4 py-2 rounded-full hover:bg-white/10 transition-colors duration-300">Contact</a></li>
-                            <li><a href="login.html" class="nav-link px-4 py-2 rounded-full hover:bg-white/10 transition-colors duration-300">Login</a></li>
+                            <li id="login-nav-item"><a href="login.html" class="nav-link px-4 py-2 rounded-full hover:bg-white/10 transition-colors duration-300">Login</a></li>
+                            <li id="user-nav-item" class="hidden">
+                                <div class="flex items-center space-x-3">
+                                    <span id="user-name" class="text-purple-400 font-medium"></span>
+                                    <button id="logout-btn" class="px-4 py-2 rounded-full bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors duration-300">Logout</button>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <div class="md:hidden pr-4"><button class="text-white focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button></div>
@@ -399,5 +405,91 @@
     </div>
 
     <script src="script.js"></script>
+    
+    <script>
+        // Login Status Management
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            
+            // Logout functionality
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    logout();
+                });
+            }
+        });
+
+        function checkLoginStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('studiocode_current_user'));
+            const loginNavItem = document.getElementById('login-nav-item');
+            const userNavItem = document.getElementById('user-nav-item');
+            const userName = document.getElementById('user-name');
+            
+            if (currentUser) {
+                // User is logged in
+                loginNavItem.classList.add('hidden');
+                userNavItem.classList.remove('hidden');
+                userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                
+                // Show welcome message
+                showWelcomeMessage(currentUser);
+            } else {
+                // User is not logged in
+                loginNavItem.classList.remove('hidden');
+                userNavItem.classList.add('hidden');
+            }
+        }
+
+        function logout() {
+            // Remove current user from localStorage
+            localStorage.removeItem('studiocode_current_user');
+            
+            // Show logout message
+            showMessage('Logout berhasil!', 'success');
+            
+            // Update navigation
+            setTimeout(() => {
+                checkLoginStatus();
+            }, 1000);
+        }
+
+        function showWelcomeMessage(user) {
+            // Create welcome notification
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'fixed top-4 right-4 z-50 bg-green-500/20 border border-green-500/30 text-green-400 px-6 py-3 rounded-xl shadow-lg';
+            welcomeDiv.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>Selamat datang, ${user.firstName}!</span>
+                </div>
+            `;
+            
+            document.body.appendChild(welcomeDiv);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                welcomeDiv.remove();
+            }, 3000);
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-xl shadow-lg ${
+                type === 'success' ? 'bg-green-500/20 border border-green-500/30 text-green-400' : 
+                'bg-red-500/20 border border-red-500/30 text-red-400'
+            }`;
+            messageDiv.textContent = text;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+    </script>
 </body>
 </html

@@ -264,7 +264,7 @@
                 <div class="text-center mt-8">
                     <p class="text-gray-400">
                         Belum punya akun? 
-                        <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold transition-colors duration-300">Daftar sekarang</a>
+                        <a href="register.html" class="text-purple-400 hover:text-purple-300 font-semibold transition-colors duration-300">Daftar sekarang</a>
                     </p>
                 </div>
             </div>
@@ -330,10 +330,16 @@
                     const email = document.getElementById('email').value;
                     const password = document.getElementById('password').value;
                     
-                    // Simple validation (replace with actual authentication)
-                    if (email && password) {
+                    // Authenticate against stored data
+                    const isAuthenticated = authenticateUser(email, password);
+                    
+                    if (isAuthenticated) {
                         // Success
                         showMessage('Login berhasil! Mengalihkan...', 'success');
+                        
+                        // Store login session
+                        const user = getUserByEmail(email);
+                        localStorage.setItem('studiocode_current_user', JSON.stringify(user));
                         
                         // Simulate redirect
                         setTimeout(() => {
@@ -341,7 +347,7 @@
                         }, 2000);
                     } else {
                         // Error
-                        showMessage('Email dan password harus diisi!', 'error');
+                        showMessage('Email atau password salah!', 'error');
                     }
                     
                     // Reset button state
@@ -350,6 +356,48 @@
                     loginBtn.disabled = false;
                 }, 1500);
             });
+
+            function authenticateUser(email, password) {
+                // Get stored users
+                const users = JSON.parse(localStorage.getItem('studiocode_users')) || [];
+                
+                // Find user by email
+                const user = users.find(u => u.email === email);
+                
+                if (!user) {
+                    return false; // User not found
+                }
+                
+                // Check password
+                if (user.password === password) {
+                    return true; // Authentication successful
+                }
+                
+                return false; // Wrong password
+            }
+
+            function getUserByEmail(email) {
+                const users = JSON.parse(localStorage.getItem('studiocode_users')) || [];
+                return users.find(u => u.email === email);
+            }
+
+            // Debug function to display stored users
+            function displayStoredUsers() {
+                const users = JSON.parse(localStorage.getItem('studiocode_users')) || [];
+                console.log('=== STORED USERS FOR LOGIN ===');
+                users.forEach((user, index) => {
+                    console.log(`User ${index + 1}:`, {
+                        name: `${user.firstName} ${user.lastName}`,
+                        email: user.email,
+                        password: user.password ? '***' : 'not set',
+                        accountType: user.accountType
+                    });
+                });
+                console.log('=============================');
+            }
+
+            // Display stored users on page load for debugging
+            displayStoredUsers();
 
             function showMessage(text, type) {
                 messageContent.textContent = text;
