@@ -267,4 +267,46 @@
             `;
             document.head.appendChild(style);
 
+            // --- Fitur 7: Project Cost Calculator (Baru) ---
+    const calculatorForm = document.getElementById('calculator-form');
+    const estimatedCostElement = document.getElementById('estimated-cost');
+    const pricing = {
+        'basic': 500., // base cost for a basic website
+        'e-commerce': 1500, // base cost for an e-commerce site
+        'custom': 2500, // base cost for a custom web app
+        'page': 100, // cost per additional page
+        'seo': 200, // cost for SEO optimization
+        'cms': 300, // cost for CMS integration
+        'social-login': 150 // cost for social login integration
+    };
+
+    function calculateCost() {
+        let totalCost = 0;
+        const projectType = document.getElementById('project-type').value;
+        const numPages = parseInt(document.getElementById('num-pages').value);
+        const selectedFeatures = document.querySelectorAll('input[name="feature"]:checked');
+
+        // Add base cost based on project type
+        totalCost += pricing[projectType];
+
+        // Add cost for number of pages
+        if (numPages > 1) {
+            totalCost += (numPages - 1) * pricing['page'];
+        }
+
+        // Add cost for additional features
+        selectedFeatures.forEach(checkbox => {
+            totalCost += pricing[checkbox.value];
         });
+
+        // Update the display
+        estimatedCostElement.textContent = `${totalCost.toLocaleString()}K`;
+    }
+
+    // Listen for changes in the form and recalculate
+    if (calculatorForm) {
+        calculatorForm.addEventListener('change', calculateCost);
+        // Initial calculation
+        calculateCost();
+    }
+});
